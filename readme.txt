@@ -40,4 +40,8 @@ You can get the Root RAML URL in the MuleSoft Anypoint Platform when you create 
  
 = 1.0 =
 * First version.
- 
+
+== Upgrade Notice == 
+
+= 1.0 = 
+* First version.
