@@ -18,7 +18,11 @@
         							label: 'Root RAML URL'
         						}],
         						onsubmit: function( e ) {
-        							ed.insertContent( '[raml-console file="' + e.data.link + '"]' );
+                      if (e.data.link == ''){
+                        ed.insertContent( '[raml-console]' );
+                      } else {
+                        ed.insertContent( '[raml-console file="' + e.data.link + '"]' );
+                      }
         						}
                   });
                 }
