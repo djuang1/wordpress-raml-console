@@ -5,8 +5,6 @@ Tags: RAML, API, console, MuleSoft, API Design
 Requires at least: 4.7.2
 Tested up to: 4.7.2
 Stable tag: 1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
  
 Provides a way to embed a RAML Console in a page or post. Plugin adds a button to the Editor as well as a shortcode.
  

@@ -50,29 +50,29 @@ add_action('init', 'raml_console_shortcodes_init');
 // ----------------------------------------------------------
 // Add MCE plugin below
 
-function enqueue_plugin_scripts($plugin_array)
+function raml_console_enqueue_plugin_scripts($plugin_array)
 {
     //enqueue TinyMCE plugin script with its ID.
     $plugin_array["raml_console_button_plugin"] =  plugin_dir_url(__FILE__) . "raml-console.js";
     return $plugin_array;
 }
 
-add_filter("mce_external_plugins", "enqueue_plugin_scripts");
+add_filter("mce_external_plugins", "raml_console_enqueue_plugin_scripts");
 
-function register_buttons_editor($buttons)
+function raml_console_register_buttons_editor($buttons)
 {
     //register buttons with their id.
     array_push($buttons, "raml_console");
     return $buttons;
 }
 
-add_filter("mce_buttons", "register_buttons_editor");
+add_filter("mce_buttons", "raml_console_register_buttons_editor");
 
 //
 // Include full-width template selection dropdown
 //
 
-class RAMLPageTemplater {
+class RAMLConsolePageTemplater {
 
 	/**
 	 * A reference to an instance of this class.
@@ -87,10 +87,10 @@ class RAMLPageTemplater {
 	/**
 	 * Returns an instance of this class.
 	 */
-	public static function get_instance() {
+	public static function raml_console_get_instance() {
 
 		if ( null == self::$instance ) {
-			self::$instance = new RAMLPageTemplater();
+			self::$instance = new RAMLConsolePageTemplater();
 		}
 
 		return self::$instance;
@@ -111,14 +111,14 @@ class RAMLPageTemplater {
 			// 4.6 and older
 			add_filter(
 				'page_attributes_dropdown_pages_args',
-				array( $this, 'register_project_templates' )
+				array( $this, 'raml_console_register_project_templates' )
 			);
 
 		} else {
 
 			// Add a filter to the wp 4.7 version attributes metabox
 			add_filter(
-				'theme_page_templates', array( $this, 'add_new_template' )
+				'theme_page_templates', array( $this, 'raml_console_add_new_template' )
 			);
 
 		}
@@ -126,7 +126,7 @@ class RAMLPageTemplater {
 		// Add a filter to the save post to inject out template into the page cache
 		add_filter(
 			'wp_insert_post_data',
-			array( $this, 'register_project_templates' )
+			array( $this, 'raml_console_register_project_templates' )
 		);
 
 
@@ -134,7 +134,7 @@ class RAMLPageTemplater {
 		// template assigned and return it's path
 		add_filter(
 			'template_include',
-			array( $this, 'view_project_template')
+			array( $this, 'raml_console_view_project_template')
 		);
 
 
@@ -149,7 +149,7 @@ class RAMLPageTemplater {
 	 * Adds our template to the page dropdown for v4.7+
 	 *
 	 */
-	public function add_new_template( $posts_templates ) {
+	public function raml_console_add_new_template( $posts_templates ) {
 		$posts_templates = array_merge( $posts_templates, $this->templates );
 		return $posts_templates;
 	}
@@ -158,7 +158,7 @@ class RAMLPageTemplater {
 	 * Adds our template to the pages cache in order to trick WordPress
 	 * into thinking the template file exists where it doens't really exist.
 	 */
-	public function register_project_templates( $atts ) {
+	public function raml_console_register_project_templates( $atts ) {
 
 		// Create the key used for the themes cache
 		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
@@ -188,7 +188,7 @@ class RAMLPageTemplater {
 	/**
 	 * Checks if the template is assigned to the page
 	 */
-	public function view_project_template( $template ) {
+	public function raml_console_view_project_template( $template ) {
 
 		// Get global post
 		global $post;
@@ -222,7 +222,7 @@ class RAMLPageTemplater {
 	}
 
 }
-add_action( 'plugins_loaded', array( 'RAMLPageTemplater', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'RAMLConsolePageTemplater', 'raml_console_get_instance' ) );
 
 // ----------------------------------------------------------
 // raml-console Admin Menu
